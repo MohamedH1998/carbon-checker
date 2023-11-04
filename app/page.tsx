@@ -1,10 +1,25 @@
-import Button from "@/components/button";
-import Image from "next/image";
+import { Accordion } from "@/components/accordion";
+import WhyCare from "@/containers/why-care";
+import Limitations from "@/containers/limitations";
+import CalcSegment from "@/containers/calc-segment";
+import AverageSite from "@/containers/average-site";
+import Emissions from "@/containers/emissions";
+import Hero from "@/containers/hero";
 
 export default function Home() {
   return (
-    <div className="w-screen h-screen flex items-center justify-center">
-      <Button />
+    <div className="w-screen space-y-4 px-5">
+      <Hero />
+      <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 space-y-5 max-w-[500px] md:space-y-0 md:max-w-none items-stretch">
+        <AverageSite />
+        <CalcSegment />
+        <Emissions />
+      </div>
+      <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 space-y-5 max-w-[500px] md:space-y-0 md:max-w-none items-stretch">
+        <Accordion />
+        <WhyCare />
+        <Limitations />
+      </div>
     </div>
   );
 }
