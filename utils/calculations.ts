@@ -1,3 +1,5 @@
+"use server";
+
 import normalizeUrl from "normalize-url";
 import { roundToOneDecimal } from "./helper";
 
@@ -25,11 +27,8 @@ const GREEN_FOUNDATION_API_ENDPOINT =
 function getAnnualEmissions(emissionsPerVisit: number) {
   const result =
     emissionsPerVisit * DEFAULT_MONTHLY_VISITORS * MONTHS_IN_A_YEAR;
-  const transformedResult = roundToOneDecimal(result) / 1000;
-  return {
-    result: transformedResult,
-    units: "kg CO2e",
-  };
+  const transformedData = roundToOneDecimal(result) / 1000;
+  return transformedData;
 }
 const calculateTransferredBytes = (items: IndigoItem[]) =>
   items
@@ -88,7 +87,7 @@ const getStats = (bytes: number, isGreen: boolean) => {
   const energy = adjustedBytes * (KWG_PER_GB / GIGTABYTE);
   const emissionsPerVisit = getEmissionsPerVisit(energy, isGreen);
   const emissionsPerYear = getAnnualEmissions(emissionsPerVisit);
-  const energyEquivalence = equivalence(emissionsPerYear.result);
+  const energyEquivalence = equivalence(emissionsPerYear);
 
   const test = {
     emissionsPerVisit: { result: emissionsPerVisit, units: "g CO2e" },
@@ -100,27 +99,34 @@ const getStats = (bytes: number, isGreen: boolean) => {
   return test;
 };
 
-export const calculateByURLVibo = async (url: string) => {
-  const normalisedURL = normalizeUrl(url);
+export const calculateByURL = async (url: string) => {
+  try {
+    const normalisedURL = normalizeUrl(url);
 
-  if (!normalisedURL) {
-    throw new Error("Enter a proper url pelase");
+    if (!normalisedURL) {
+      throw new Error("Enter a proper url please");
+    }
+    const [pagespeedapi, greenweb] = await Promise.all([
+      getNetworkTraffic({
+        url: normalisedURL,
+        key: process.env.GOOGLE_API_KEY!,
+      }),
+      getGreenWeb(normalisedURL),
+    ]);
+
+    if (!pagespeedapi || !greenweb) {
+      throw new Error("Something went wrong getting your data");
+    }
+
+    const isGreenHost = greenweb?.green;
+
+    const bytesTransferred = calculateTransferredBytes(
+      pagespeedapi.lighthouseResult.audits["network-requests"].details.items
+    );
+
+    const stats = getStats(bytesTransferred, isGreenHost);
+    return stats as unknown as Data;
+  } catch (e: any) {
+    return undefined;
   }
-  const [pagespeedapi, greenweb] = await Promise.all([
-    getNetworkTraffic({ url: normalisedURL, key: process.env.GOOGLE_API_KEY! }),
-    getGreenWeb(normalisedURL),
-  ]);
-
-  if (!pagespeedapi || !greenweb) {
-    throw new Error("Something went wrong getting your data");
-  }
-
-  const isGreenHost = greenweb?.green;
-
-  const bytesTransferred = calculateTransferredBytes(
-    pagespeedapi.lighthouseResult.audits["network-requests"].details.items
-  );
-
-  const stats = getStats(bytesTransferred, isGreenHost);
-  return stats;
 };

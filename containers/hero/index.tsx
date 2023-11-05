@@ -48,7 +48,7 @@ const Hero = () => {
         </div>
         <div className="md:min-w-[750px]">
           <h1
-            className={`font-medium text-4xl px-0 leading-7 md:min-w-[750px] xs:text-5xl uppercase text-big-stone z-1 md:text-7xl xs:px-10 md:px-20 md:pb-10 w-8/12 ${notoSansKawi.className}`}
+            className={`font-medium text-4xl px-0  md:min-w-[750px] xs:text-5xl uppercase text-big-stone z-1 md:text-7xl xs:px-10 md:px-20 md:pb-10 w-8/12 ${notoSansKawi.className}`}
           >
             {" "}
             Estimate your website&apos;s carbon

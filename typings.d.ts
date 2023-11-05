@@ -1,10 +1,12 @@
 type Data = {
-  annualEmissions?: { result: number; units: string };
-  energyPerVisit?: { result: number; units: string };
-  emissionsPerVisit?: { result: number; units: string };
-  annualEmissions: { result: number; units: string };
-  annualEnergy: { result: number; units: string };
-  cupsOfCoffee: { result: string };
+  emissionsPerVisit: { result: number; units: "g CO2e" };
+  adjustedBytes: { result: number; unit: "bytes" };
+  energy: number;
+  emissionsPerYear: {
+    result: { result: number; units: "kg CO2e" };
+    units: "kg CO2e";
+  };
+  energyEquivalence: { cupsOfCoffee: number; treesOfset: number };
 };
 
 type Ref = HTMLButtonElement | null;

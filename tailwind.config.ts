@@ -27,6 +27,7 @@ module.exports = {
         aeronautic: "#2B3347",
         "glitter-shower": "#89FCFC",
         "thallium-flame": "#65FF99",
+        squant: "#666666",
         renaissance: "#454356",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
