@@ -4,6 +4,7 @@ import { Gradient } from "../../utils/gradient";
 import { useEffect } from "react";
 
 import { Noto_Sans_Kawi } from "next/font/google";
+import Link from "next/link";
 
 const notoSansKawi = Noto_Sans_Kawi({
   subsets: ["latin"],
@@ -38,9 +39,12 @@ const Hero = () => {
             <IoEarthSharp />
           </i>
         </div>
-        <button className="bg-background rounded-full px-4 py-1 text-white">
+        <Link
+          href="#calculate"
+          className="bg-background rounded-full px-4 py-1 text-white"
+        >
           Try now
-        </button>
+        </Link>
       </div>
       <div className="flex justify-start">
         <div className="hidden max-w-[150px] h-full lg:flex flex-col flex-2">

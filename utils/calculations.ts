@@ -93,7 +93,10 @@ const getStats = (bytes: number, isGreen: boolean) => {
     emissionsPerVisit: { result: emissionsPerVisit, units: "g CO2e" },
     adjustedBytes: { result: adjustedBytes, unit: "bytes" },
     energy,
-    emissionsPerYear: { result: emissionsPerYear, units: "kg CO2e" },
+    emissionsPerYear: {
+      result: roundToOneDecimal(emissionsPerYear),
+      units: "kg CO2e",
+    },
     energyEquivalence,
   };
   return test;

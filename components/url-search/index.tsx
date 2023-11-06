@@ -8,17 +8,25 @@ interface Props {
   error: boolean;
   loadingData: boolean;
   setError: (error: boolean) => void;
+  url: string;
+  setUrl: (url: string) => void;
 }
 
-const URLSearch = ({ fetchData, error, setError, loadingData }: Props) => {
-  const [data, setData] = useState<string>("");
-
+const URLSearch = ({
+  fetchData,
+  error,
+  setError,
+  loadingData,
+  url,
+  setUrl,
+}: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const transformedUrl = validUrl(data);
+    const transformedUrl = validUrl(url);
     if (transformedUrl === undefined) {
       setError(true);
     } else {
+      setUrl(transformedUrl);
       setError(false);
       fetchData();
     }
@@ -32,8 +40,8 @@ const URLSearch = ({ fetchData, error, setError, loadingData }: Props) => {
       >
         <input
           required
-          value={data}
-          onChange={(e) => setData(e.target.value)}
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
           placeholder="Enter your URL"
           className="bg-squant py-3 px-5 rounded-full w-full mr-4"
         />

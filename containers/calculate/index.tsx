@@ -1,6 +1,6 @@
 "use client";
 
-import React, { MutableRefObject, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CgCoffee } from "react-icons/cg";
 import { IoMdRocket } from "react-icons/io";
 import Card from "../../components/card";
@@ -30,8 +30,6 @@ const Calculate = () => {
       setError(true);
     }
   };
-
-  const defaultInfo = !loadingData && !data;
 
   const cardInfo = [
     {
@@ -66,12 +64,17 @@ const Calculate = () => {
       defaultStat: `--- trees per year`,
       stat:
         data &&
-        `${data.energyEquivalence.treesOfset} trees carbon absorption per year`,
+        `${data.energyEquivalence.treesOfset} ${
+          data.energyEquivalence.treesOfset == 1 ? "tree" : "trees"
+        } per year`,
     },
   ];
 
   return (
-    <section className="w-full py-20 px-4 text-powder-white flex flex-col md:items-between md:py-24 md:px-20">
+    <section
+      id="calculate"
+      className="w-full py-20 px-4 text-powder-white flex flex-col md:items-between md:py-24 md:px-20"
+    >
       <div className="w-full">
         <h2 className="text-3xl md:text-6xl md:py-6">
           Estimate your carbon footprint
@@ -85,6 +88,8 @@ const Calculate = () => {
           loadingData={loadingData}
           error={error}
           setError={setError}
+          setUrl={setUrl}
+          url={url}
           fetchData={fetchData}
         />
         <div className="w-full grid grid-cols-1 lg:grid-cols-3 lg:gap-4">
