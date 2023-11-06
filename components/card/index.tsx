@@ -5,7 +5,7 @@ interface CardProps {
   description: string;
   stat?: string;
   loadingData?: boolean;
-  defaultStat: string;
+  defaultStat?: string;
 }
 
 const Card = ({
