@@ -92,7 +92,7 @@ const Calculate = () => {
           url={url}
           fetchData={fetchData}
         />
-        <div className="w-full grid grid-cols-1 lg:grid-cols-3 lg:gap-4">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-3 lg:gap-4 md:py-6">
           {cardInfo.map((card, i) => (
             <Card {...card} loadingData={loadingData} key={i} />
           ))}

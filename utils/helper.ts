@@ -5,7 +5,7 @@ export async function getCalc(url: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({url}),
+      body: JSON.stringify({ url }),
     });
     const { data } = await resp.json();
     if (!resp.ok) {
@@ -26,13 +26,6 @@ export function validUrl(url: string): string | undefined {
     /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/;
   if (!urlRegex.test(url)) {
     return undefined;
-  }
-  if (
-    !url.startsWith("http://") &&
-    !url.startsWith("https://") &&
-    !url.startsWith("www.")
-  ) {
-    return "http://www." + url;
   }
   return url;
 }
