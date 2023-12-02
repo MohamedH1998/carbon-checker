@@ -9,11 +9,6 @@ import InfoWrapper from "../info-wrapper";
 
 export function Accordion() {
   return (
-    // <div className="w-full text-white  p-5 border-2 border-border rounded-xl ">
-    //   <div className="py-2">
-    //     <span className="text-gray-400 text-sm block py-2">WHY CARE?</span>
-    //     <h1 className="text-2xl">What steps can you take?</h1>
-    //   </div>
     <InfoWrapper
       icon={<BsFillBalloonHeartFill />}
       title="What steps can you take?"

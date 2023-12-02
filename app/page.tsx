@@ -7,6 +7,8 @@ import Emissions from "@/containers/emissions";
 import Hero from "@/containers/hero";
 import Calculate from "@/containers/calculate";
 
+export const runtime = "edge";
+
 export default function Home() {
   return (
     <div className="w-screen space-y-4 p-2 md:px-5 flex flex-col items-center justify-center">

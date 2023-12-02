@@ -55,7 +55,7 @@ const URLSearch = ({
       </form>
       {error && (
         <p className="ml-2 py-2 text-red-500">
-          Something went wrong, try again with a valid url
+          Something went wrong, try again
         </p>
       )}
     </div>
